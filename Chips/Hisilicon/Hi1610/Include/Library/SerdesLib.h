@@ -20,7 +20,7 @@ typedef enum hilink0_mode_type
 {
     EM_HILINK0_HCCS1_8LANE = 0,
     EM_HILINK0_PCIE1_8LANE = 2,
-    EM_HILINK0_PCIE1_4LANE_PCIE2_4LANE = 3,
+    EmHilink0Pcie1X4Pcie2X4 = 3,
     EM_HILINK0_SAS2_8LANE = 4,
     EM_HILINK0_HCCS1_8LANE_16,
     EM_HILINK0_HCCS1_8LANE_32,
@@ -30,20 +30,20 @@ typedef enum hilink1_mode_type
 {
     EM_HILINK1_SAS2_1LANE = 0,
     EM_HILINK1_HCCS0_8LANE = 1,
-    EM_HILINK1_PCIE0_8LANE = 2,
+    EmHilink1Pcie0X8 = 2,
     EM_HILINK1_HCCS0_8LANE_16,
     EM_HILINK1_HCCS0_8LANE_32,
 }hilink1_mode_type_e;
 
 typedef enum hilink2_mode_type
 {
-    EM_HILINK2_PCIE2_8LANE = 0,
+    EmHilink2Pcie2X8 = 0,
     EM_HILINK2_SAS0_8LANE = 2,
 }hilink2_mode_type_e;
 
 typedef enum hilink5_mode_type
 {
-    EM_HILINK5_PCIE3_4LANE = 0,
+    EmHilink5Pcie3X4 = 0,
     EM_HILINK5_PCIE2_2LANE_PCIE3_2LANE = 1,
     EM_HILINK5_SAS1_4LANE = 2,
 
@@ -58,18 +58,16 @@ typedef enum board_type_em
 }board_type_e;
 
 
-typedef struct serdes_param
-{
-    hilink0_mode_type_e hilink0_mode;
-    hilink1_mode_type_e hilink1_mode;
-    hilink2_mode_type_e hilink2_mode;
-    UINT32 hilink3_mode;
-    UINT32 hilink4_mode;
-    hilink5_mode_type_e hilink5_mode;
-    UINT32 hilink6_mode;
-    UINT32 use_ssc;
-    //board_type_e board_type;
-}serdes_param_t;
+typedef struct {
+  hilink0_mode_type_e Hilink0Mode;
+  hilink1_mode_type_e Hilink1Mode;
+  hilink2_mode_type_e Hilink2Mode;
+  UINT32 hilink3_mode;
+  UINT32 hilink4_mode;
+  hilink5_mode_type_e Hilink5Mode;
+  UINT32 hilink6_mode;
+  UINT32 use_ssc;
+} SERDES_PARAM;
 
 
 #define SERDES_INVALID_MACRO_ID  0xFFFFFFFF
@@ -82,7 +80,7 @@ typedef struct {
     UINT32 DsCfg;
 } SERDES_POLARITY_INVERT;
 
-EFI_STATUS OemGetSerdesParam (serdes_param_t *ParamA, serdes_param_t *ParamB, UINT32 SocketId);
+EFI_STATUS OemGetSerdesParam (SERDES_PARAM *ParamA, SERDES_PARAM *ParamB, UINT32 SocketId);
 extern SERDES_POLARITY_INVERT gSerdesPolarityTxDesc[];
 extern SERDES_POLARITY_INVERT gSerdesPolarityRxDesc[];
 UINT32 GetEthType(UINT8 EthChannel);
